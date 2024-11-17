@@ -1,4 +1,4 @@
-import { ISignup, SignupSchema } from '@/components/schemas/SignupSchema';
+import { ISignup, SignupSchema } from '@/schemas/SignupSchema';
 import { useSignup } from '@/services/query/auth.query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

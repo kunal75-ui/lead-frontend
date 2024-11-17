@@ -1,52 +1,46 @@
-import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { useDeleteLead, useGetLead } from '@/services/query/lead.management.query';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuthentication } from '@/hooks/useAuthentication';
-import { ILead } from '@/types';
+import { useGetLead, useDeleteLead } from '@/services/api/lead.api';
 
 const DeleteLeadPage: React.FC = () => {
-    const { leadId } = useParams();
-    // const [lead, setLead] = useState<ILead | null>(null);
-    // Get the lead ID from the route params
-    const navigate = useNavigate();
+    const { id } = useParams();
+    const navigate = useNavigate()
 
     const { principal } = useAuthentication();
+    const { data: leadData, isLoading } = useGetLead(id!)
+
+    if (isLoading) return <div>Loading...</div>;
 
     // Fetch lead details
-    const { mutateAsync: deleteLead } = useDeleteLead();
-    // const { data } = useGetLead(leadId!)
-    // setLead(data)
 
     const isAdmin = principal?.role === 'admin'
 
     console.log({ isAdmin });
-console.log('delete',leadId);
-
+    console.log('delete', id);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const deleteLead = useDeleteLead();
+    
     // Handle lead deletion
-    const handleDelete = async () => {
+    const handleDelete = () => {
 
-        if (!isAdmin) {
+        if (isAdmin && id) {
+            deleteLead.mutate(id!);
+            navigate('/lead-management')
+        } else {
+
             toast.error('You do not have permission to delete leads');
-            return;
-        }
-        try {
-            if (leadId) {
 
-                await deleteLead(leadId!);
-                toast.success('Lead deleted successfully');
-                navigate('/dashboard'); // Redirect to the dashboard after deletion
-            }
-        } catch (error) {
-            toast.error('Error deleting the lead');
+            navigate('/lead-management'); // Redirect to the dashboard after deletion
         }
     };
 
     // Handle cancel action
     const handleCancel = () => {
         navigate(-1); // Go back to the previous page
+        
     };
 
 
@@ -56,15 +50,15 @@ console.log('delete',leadId);
             <CardHeader>
                 <CardTitle>Delete Lead</CardTitle>
                 <CardDescription>
-                    Are you sure you want to delete the lead <strong>user</strong>?
+                    Are you sure you want to delete the lead <strong>user:{leadData?.leadName}</strong>?
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="flex flex-col space-y-4">
                     <div>
-                        {/* <p><strong>Lead Name:</strong> {data?.lead.leadName}</p>
-            <p><strong>Contact Number:</strong> {data?.lead?.contactNumber}</p>
-            <p><strong>Email:</strong> {data?.lead?.email}</p> */}
+                        <p><strong>Lead Name:</strong> {leadData?.leadName}</p>
+                        <p><strong>Contact Number:</strong> {leadData?.contactNumber}</p>
+                        <p><strong>Email:</strong> {leadData?.email}</p>
                     </div>
                     <div className="flex space-x-4">
                         <Button variant="destructive" onClick={handleDelete}>

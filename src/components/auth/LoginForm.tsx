@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
-import { ILogin, loginSchema } from '@/components/schemas/LoginSchema';
+import { ILogin, loginSchema } from '@/schemas/LoginSchema';
 import { Eye, EyeOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';

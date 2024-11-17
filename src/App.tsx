@@ -2,12 +2,12 @@ import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import Signup from './pages/SignupPage';
 import Login from './pages/LoginPage';
 import Dashboard from './pages/dashboardPage';
-// import './App.css'
 import EditLead from './pages/EditLeadPage';
 import PrivateRoutes from './components/guards/PrivateRoute';
 import AuthPageLayout from './pages/layouts/AuthLayout';
-import CreateLead from './pages/CreateLeadPage';
 import DeleteLeadPage from './pages/DeleteLeadPage';
+import LeadForm from './components/lead-management/LeadForm';
+import LeadManagement from './pages/LeadManagement';
 
 const App = () => {
   return (
@@ -20,9 +20,12 @@ const App = () => {
         </Route>
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/create" element={<CreateLead />} />
-            <Route path="/edit-lead/:id" element={<EditLead />} />
-            <Route path="/delete-lead/:id" element={<DeleteLeadPage />} />        
+          <Route path='/lead-management' >
+            <Route path="" element={<LeadManagement />} />
+            <Route path="create" element={<LeadForm />} />
+            <Route path="edit/:id" element={<EditLead />} />
+            <Route path="delete/:id" element={<DeleteLeadPage />} />
+          </Route>
 
         </Route >
       </Routes>

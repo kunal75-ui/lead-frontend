@@ -6,14 +6,14 @@ export const leadSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   address: z.string().optional(),
   status: z.string().min(1, { message: "Status is required" }),
-  nextFollowUpDate: z.date({ required_error: "Next follow-up date is required" }),
-  nextFollowUpTime: z.string().min(1, { message: "Next follow-up time is required" }),
-  leadSource: z.string().min(1, { message: "Lead source is required" }),
-  conversionDate: z.date().optional(),
-  leadNotes: z.string().optional(),
-  customerType: z.string().optional(),
-  purchaseHistory: z.array(z.string()).optional(),
-  medicalNeeds: z.array(z.string()).optional(),
+  // nextFollowUpDate: z.date({ required_error: "Next follow-up date is required" }),
+  // nextFollowUpTime: z.string().min(1, { message: "Next follow-up time is required" }),
+  // leadSource: z.string().min(1, { message: "Lead source is required" }),
+  // conversionDate: z.date().optional(),
+  // leadNotes: z.string().optional(),
+  // customerType: z.string().optional(),
+  // purchaseHistory: z.array(z.string()).optional(),
+  // medicalNeeds: z.array(z.string()).optional(),
 });
 
 // Type inferred from the schema

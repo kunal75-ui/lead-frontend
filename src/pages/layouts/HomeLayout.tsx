@@ -11,7 +11,7 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
         <div className="flex">
             <Sidebar>
                 <SidebarItem icon={<DashboardIcon className="size-5" />} name="Dashboard" href="/dashboard" />
-                <SidebarItem icon={<PersonIcon className="size-5 " />} name="Lead Management" href="/create" />
+                <SidebarItem icon={<PersonIcon className="size-5 " />} name="Lead Management" href="/lead-management" />
             </Sidebar>
             <div className="flex flex-col flex-1 h-screen">
                 <Header />

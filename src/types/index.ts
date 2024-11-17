@@ -28,14 +28,14 @@ export interface ILead extends BaseDocument {
   leadName: string;
   contactNumber: string;
   email: string;
-  address: string;
+  address?: string;
   status: string;
-  nextFollowUpDate: Date;
-  nextFollowUpTime: string;
-  leadSource: string;
-  conversionDate?: Date;
-  leadNotes?: string;
-  customerType?: string;
-  purchaseHistory?: string[];
-  medicalNeeds?: string[];
+  // nextFollowUpDate: Date;
+  // nextFollowUpTime: string;
+  // leadSource: string;
+  // conversionDate?: Date;
+  // leadNotes?: string;
+  // customerType?: string;
+  // purchaseHistory?: string[];
+  // medicalNeeds?: string[];
 }

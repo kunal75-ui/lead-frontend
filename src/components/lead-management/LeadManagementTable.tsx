@@ -1,27 +1,29 @@
-import { useLeads } from '@/services/query/lead.management.query';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ILead } from '@/types';
+import { useLeads } from '@/services/api/lead.api';
 
 
 const LeadManagementTable = () => {
     const navigate = useNavigate();
     const { data: leads, isLoading } = useLeads()
 
+    console.log({ leads });
 
     const handleDelete = async (id: string) => {
-        navigate(`delete-lead/${id}`)
+        navigate(`delete/${id}`)
 
     };
 
+
     const handleEdit = (id: string) => {
-        navigate(`/edit-lead/${id}`);
+        navigate(`edit/${id}`);
     };
 
     const handleAddNew = () => {
-        navigate('/create');
+        navigate('create');
     };
 
     if (isLoading) {
@@ -32,8 +34,8 @@ const LeadManagementTable = () => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Leads Management</CardTitle>
                 <div className="flex-between">
+                    <CardTitle>Leads Management</CardTitle>
                     <Button onClick={handleAddNew} className="rounded" size={'sm'}>Add New Lead</Button>
                 </div>
             </CardHeader>
@@ -49,15 +51,15 @@ const LeadManagementTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {leads?.content?.map((lead: ILead) => (
+                        {leads?.map((lead: ILead) => (
                             <TableRow key={lead._id}>
                                 <TableCell className="text-center">{lead.leadName}</TableCell>
                                 <TableCell className="text-center">{lead.contactNumber}</TableCell>
                                 <TableCell className="text-center">{lead.email}</TableCell>
                                 <TableCell className="text-center">{lead.status}</TableCell>
                                 <TableCell className="text-center">
-                                    <Button onClick={() => handleEdit(lead._id)} className="mr-2">Edit</Button>
-                                    <Button variant="destructive" onClick={() => handleDelete(lead._id)}>Delete</Button>
+                                    <Button onClick={() => handleEdit(lead._id!)} className="mr-2">Edit</Button>
+                                    <Button variant="destructive" onClick={() => handleDelete(lead._id!)}>Delete</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
